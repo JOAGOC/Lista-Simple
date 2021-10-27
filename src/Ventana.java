@@ -1,9 +1,14 @@
+
+import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Angel
@@ -15,6 +20,7 @@ public class Ventana extends javax.swing.JFrame {
      */
     public Ventana() {
         initComponents();
+        ls = new ListaSimple();
     }
 
     /**
@@ -49,7 +55,10 @@ public class Ventana extends javax.swing.JFrame {
         gridBagConstraints.weighty = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         getContentPane().add(btnAgregar, gridBagConstraints);
+
+        txtAgregar.setPreferredSize(new java.awt.Dimension(70, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         getContentPane().add(txtAgregar, gridBagConstraints);
 
@@ -62,7 +71,10 @@ public class Ventana extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         getContentPane().add(btnBorrar, gridBagConstraints);
+
+        txtDelorEdit.setPreferredSize(new java.awt.Dimension(70, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         getContentPane().add(txtDelorEdit, gridBagConstraints);
 
@@ -87,9 +99,41 @@ public class Ventana extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private class NodoGrafico extends Canvas {
+
+        public NodoGrafico() {
+            super();
+            this.setSize(70, 40);
+        }
+
+        @Override
+        public void paint(Graphics g) {
+            super.paint(g); //To change body of generated methods, choose Tools | Templates.
+            g.setColor(Color.BLUE);
+            g.fillRect(0, 0, 40, 40);
+            g.setColor(Color.CYAN);
+            g.fillRect(40, 0, 10, 40);
+            int[] xPoints = {45, 70, 70, 80, 70, 70, 45, 45}, yPoints = {16, 16, 14, 18, 22, 20, 20, 16};
+            g.fillPolygon(xPoints, yPoints, 3);
+        }
+    }
+
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        // TODO add your handling code here:
+        ls.agregar(txtAgregar.getText());
+        dibujar();
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void dibujar() {
+        for (int c = jScrollPane1.getComponentCount() - 1; c >= 0; c--) {
+            if (jScrollPane1.getComponent(c) instanceof NodoGrafico) {
+                jScrollPane1.remove(c);
+            }
+        }
+        for (Nodo i = ls.getInicio(); i != null; i = i.getSig()) {
+            NodoGrafico ng = new NodoGrafico();
+            jScrollPane1.add(ng);
+        }
+    }
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         // TODO add your handling code here:
@@ -134,6 +178,7 @@ public class Ventana extends javax.swing.JFrame {
         });
     }
 
+    private ListaSimple ls;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBorrar;

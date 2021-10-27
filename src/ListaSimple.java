@@ -20,6 +20,7 @@ public class ListaSimple {
         Nodo nuevo = new Nodo(cad);
         if (inicio == null) {
             inicio = fin = nuevo;
+            return;
         }
         fin.setSig(nuevo);
         fin = nuevo;
@@ -118,6 +119,14 @@ public class ListaSimple {
             return true;
         }
         return false;
+    }
+
+    public Nodo getInicio() {
+        return inicio;
+    }
+
+    public Nodo getFin() {
+        return fin;
     }
 
     private boolean borrar(String busqueda) {
