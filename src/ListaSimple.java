@@ -112,10 +112,11 @@ public class ListaSimple {
         System.out.println(l.ver());
     }
 
-    private boolean editar(String busqueda, String valorCambio) {
+    public boolean editar(String busqueda, String valorCambio) {
         Nodo n;
         if ((n = buscar(busqueda)) != null) {
             n.setInfo(valorCambio);
+            n.getComponent().setToolTipText(n.getInfo());
             return true;
         }
         return false;
@@ -129,7 +130,7 @@ public class ListaSimple {
         return fin;
     }
 
-    private boolean borrar(String busqueda) {
+    public boolean borrar(String busqueda) {
         Nodo n;
         if ((n = buscar(busqueda)) != null) {
             if (n == inicio) {
@@ -143,5 +144,16 @@ public class ListaSimple {
             return true;
         }
         return false;
+    }
+
+    public void borrar(Nodo nodo) {
+        if (nodo == inicio) {
+            inicio = nodo.getSig();
+        } else if (nodo == fin) {
+            fin = buscarAnterior(nodo.getInfo());
+            fin.setSig(null);
+        } else {
+            buscarAnterior(nodo.getInfo()).setSig(nodo.getSig());
+        }
     }
 }
