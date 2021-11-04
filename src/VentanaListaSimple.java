@@ -154,8 +154,8 @@ public class VentanaListaSimple extends javax.swing.JFrame {
         } catch (Exception e) {
             showMessageDialog(this, e.getMessage());
         }
+        super.repaint();
         validate();
-        repaint();
     }// GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnBorrarActionPerformed
@@ -171,7 +171,8 @@ public class VentanaListaSimple extends javax.swing.JFrame {
         } catch (Exception e) {
             showMessageDialog(this, e.getMessage());
         }
-        jScrollPane1.validate();
+        super.repaint();
+        validate();
     }// GEN-LAST:event_btnBorrarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnEditarActionPerformed
