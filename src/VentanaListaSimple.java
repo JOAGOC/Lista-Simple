@@ -15,14 +15,18 @@ import static javax.swing.JOptionPane.showMessageDialog;
  *
  * @author Angel
  */
-public class Ventana extends javax.swing.JFrame {
+public class VentanaListaSimple extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Ventana
-     */
-    public Ventana() {
+    public static VentanaListaSimple getInstance(){
+        if (instance == null)
+            instance = new VentanaListaSimple();
+        return instance;
+    }
+
+    private VentanaListaSimple() {
         initComponents();
         ls = new ListaSimple();
+        addWindowListener(VentanaPrincipal.escuchaHijo);
     }
 
     /**
@@ -159,7 +163,7 @@ public class Ventana extends javax.swing.JFrame {
             if (txtDel.getText().equals("")) {
                 throw new Exception("Rellena el campo");
             }
-            Nodo n;
+            NodoSimple n;
             if ((n = ls.buscar(txtDel.getText())) == null)
                 throw new Exception("No se encontró el nodo");
             pnlNodos.remove(n.getComponent());
@@ -210,25 +214,27 @@ public class Ventana extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Ventana.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaListaSimple.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Ventana.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaListaSimple.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Ventana.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaListaSimple.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Ventana.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaListaSimple.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        // </editor-fold>
         // </editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Ventana().setVisible(true);
+                new VentanaListaSimple().setVisible(true);
             }
         });
     }
 
     private ListaSimple ls;
+    private static VentanaListaSimple instance;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBorrar;

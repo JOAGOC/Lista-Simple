@@ -10,14 +10,14 @@
  */
 public class ListaSimple {
 
-    private Nodo inicio, fin;
+    private NodoSimple inicio, fin;
 
     public ListaSimple() {
         inicio = fin = null;
     }
 
     public void agregar(String cad) {
-        Nodo nuevo = new Nodo(cad);
+        NodoSimple nuevo = new NodoSimple(cad);
         if (inicio == null) {
             inicio = fin = nuevo;
             return;
@@ -28,14 +28,14 @@ public class ListaSimple {
 
     public String ver() {
         String r = "";
-        for (Nodo i = inicio; i != null; i = i.getSig()) {
+        for (NodoSimple i = inicio; i != null; i = i.getSig()) {
             r += "[" + i.getInfo() + "]->";
         }
         return r;
     }
 
-    public Nodo buscar(String cad) {
-        for (Nodo i = inicio; i != null; i = i.getSig()) {
+    public NodoSimple buscar(String cad) {
+        for (NodoSimple i = inicio; i != null; i = i.getSig()) {
             if (cad.equals(i.getInfo())) {
                 return i;
             }
@@ -43,8 +43,8 @@ public class ListaSimple {
         return null;
     }
 
-    public Nodo buscarAnterior(String cad) {
-        for (Nodo i = inicio; i != fin; i = i.getSig()) {
+    public NodoSimple buscarAnterior(String cad) {
+        for (NodoSimple i = inicio; i != fin; i = i.getSig()) {
             if (cad.equals(i.getSig().getInfo())) {
                 return i;
             }
@@ -113,7 +113,7 @@ public class ListaSimple {
     }
 
     public boolean editar(String busqueda, String valorCambio) {
-        Nodo n;
+        NodoSimple n;
         if ((n = buscar(busqueda)) != null) {
             n.setInfo(valorCambio);
             n.getComponent().setToolTipText(n.getInfo());
@@ -122,16 +122,16 @@ public class ListaSimple {
         return false;
     }
 
-    public Nodo getInicio() {
+    public NodoSimple getInicio() {
         return inicio;
     }
 
-    public Nodo getFin() {
+    public NodoSimple getFin() {
         return fin;
     }
 
     public boolean borrar(String busqueda) {
-        Nodo n;
+        NodoSimple n;
         if ((n = buscar(busqueda)) != null) {
             if (n == inicio) {
                 inicio = n.getSig();
@@ -146,7 +146,7 @@ public class ListaSimple {
         return false;
     }
 
-    public void borrar(Nodo nodo) {
+    public void borrar(NodoSimple nodo) {
         if (nodo == inicio) {
             inicio = nodo.getSig();
         } else if (nodo == fin) {

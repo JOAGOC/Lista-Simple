@@ -8,36 +8,37 @@
  *
  * @author Angel
  */
-public class Nodo {
-    private float info;
-    private Nodo sig,ant;
+public class NodoDoble {
+    private int info;
+    private NodoDoble sig,ant;
     
-    Nodo (float info){
+    NodoDoble (int info){
         this.info = info;
         sig=ant=null;
     }
 
-    public float getInfo() {
+    public int getInfo() {
         return info;
     }
 
-    public void setInfo(float info) {
+    public void setInfo(int info) {
         this.info = info;
     }
 
-    public Nodo getSig() {
+    public NodoDoble getSig() {
         return sig;
     }
 
-    public void setSig(Nodo sig) {
+    public void setSig(NodoDoble sig) {
         this.sig = sig;
     }
 
-    public Nodo getAnt() {
+    public NodoDoble getAnt() {
         return ant;
     }
 
-    public void setAnt(Nodo ant) {
+    public void setAnt(NodoDoble ant) {
         this.ant = ant;
     }
+    
 }
