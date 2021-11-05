@@ -10,14 +10,14 @@
  */
 public class ListaDobleCircular {
 
-    private Nodo inicio, fin;
+    private NodoCircular inicio, fin;
 
     public ListaDobleCircular() {
         inicio = fin = null;
     }
 
     public void agregar(float entero) {
-        Nodo nuevo = new Nodo(entero);
+        NodoCircular nuevo = new NodoCircular(entero);
         if (inicio == null) {
             inicio = fin = nuevo;
         } else if (entero < inicio.getInfo()) {
@@ -29,13 +29,15 @@ public class ListaDobleCircular {
             nuevo.setAnt(fin);
             fin = nuevo;
         } else {
-            for (Nodo n = inicio.getSig(); n != null; n = n.getSig()) {
-                if (n.getAnt().getInfo() <= entero && entero < n.getInfo()) {
+            for (NodoCircular n = inicio.getSig(); n != null; n = n.getSig()) {
+                if (n.getAnt().getInfo() <= entero && entero <= n.getInfo()) {
                     n.getAnt().setSig(nuevo);
                     nuevo.setAnt(n.getAnt());
                     n.setAnt(nuevo);
                     nuevo.setSig(n);
-                    return;
+                    if (inicio == fin)
+                        fin = inicio.getSig();
+                    break;
                 }
             }
         }
@@ -49,7 +51,7 @@ public class ListaDobleCircular {
         }
         String r = "";
         byte s = 0;
-        for (Nodo i = inicio; (s = i == inicio ? ++s : s) != 3; i = i.getSig()) {
+        for (NodoCircular i = inicio; (s = i == inicio ? ++s : s) != 3; i = i.getSig()) {
             r += (i == inicio ? "inicio" : i == fin ? "fin-" : "") + "[" + i.getInfo() + "]->";
         }
         return r;
@@ -65,14 +67,14 @@ public class ListaDobleCircular {
         }
         String r = "";
         byte s = 0;
-        for (Nodo i = fin; (s = i == fin ? ++s : s) != 3; i = i.getAnt()) {
+        for (NodoCircular i = fin; (s = i == fin ? ++s : s) != 3; i = i.getAnt()) {
             r += "[" + i.getInfo() + "]->";
         }
         return r;
     }
 
-    public Nodo buscar(float entero) {
-        for (Nodo i = inicio; i != null; i = i.getSig()) {
+    public NodoCircular buscar(float entero) {
+        for (NodoCircular i = inicio; i != null; i = i.getSig()) {
             if (entero == i.getInfo()) {
                 return i;
             }
@@ -110,7 +112,15 @@ public class ListaDobleCircular {
 //        }
     }
 
-    private boolean editar(float busqueda, float valorCambio) {
+    public NodoCircular getInicio() {
+        return inicio;
+    }
+
+    public NodoCircular getFin() {
+        return fin;
+    }
+
+    public boolean editar(float busqueda, float valorCambio) {
         if ((borrar(busqueda))) {
             agregar(valorCambio);
             return true;
@@ -118,24 +128,26 @@ public class ListaDobleCircular {
         return false;
     }
 
-    private boolean borrar(float busqueda) {
-        Nodo n;
+    public boolean borrar(float busqueda) {
+        NodoCircular n;
         if ((n = buscar(busqueda)) == null) {
             return false;
         }
         if (n == inicio && n == fin) {
             inicio = fin = null;
         } else if (n == inicio) {
-            fin.setSig(inicio.getSig());
+            inicio = inicio.getSig();
+            inicio.setAnt(fin);
+            fin.setSig(inicio);
         } else if (n == fin) {
-            fin.getAnt().setSig(inicio);
+            fin = fin.getAnt();
+            fin.setSig(inicio);
+            inicio.setAnt(fin);
         } else {
             n.getAnt().setSig(n.getSig());
             n.getSig().setAnt(n.getAnt());
             return true;
         }
-        inicio.getSig().setAnt(fin);
-        inicio = inicio.getSig();
         return true;
     }
 }
