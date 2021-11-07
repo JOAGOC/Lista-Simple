@@ -35,6 +35,8 @@ public class ListaDoble {
                     nuevo.setAnt(n.getAnt());
                     n.setAnt(nuevo);
                     nuevo.setSig(n);
+                        if (inicio == fin)
+                        fin = inicio.getSig();
                     break;
                 }
             }
@@ -96,7 +98,7 @@ public class ListaDoble {
 //        }
     }
 
-    private boolean editar(int busqueda, int valorCambio) {
+    public boolean editar(int busqueda, int valorCambio) {
         if ((borrar(busqueda))) {
             agregar(valorCambio);
             return true;
@@ -124,4 +126,34 @@ public class ListaDoble {
         }
         return false;
     }
+    
+    public void borrar(NodoDoble nodo) {
+        if (nodo == inicio) {
+            inicio = nodo.getSig();
+        } else if (nodo == fin) {
+            fin = nodo.getAnt();
+            fin.setSig(null);
+        } else {
+            nodo.getAnt().setSig(nodo.getSig());
+        }
+    }
+
+
+
+    public NodoDoble getInicio() {
+        return inicio;
+    }
+
+    public void setInicio(NodoDoble inicio) {
+        this.inicio = inicio;
+    }
+
+    public NodoDoble getFin() {
+        return fin;
+    }
+
+    public void setFin(NodoDoble fin) {
+        this.fin = fin;
+    }
+    
 }

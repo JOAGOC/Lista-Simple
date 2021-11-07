@@ -52,6 +52,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         getContentPane().add(btnListaSimple, gridBagConstraints);
 
         jButton2.setText("Lista Doble");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
@@ -76,6 +81,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         VentanaListaSimple.getInstance().setVisible(true);
         setEnabled(false);
     }//GEN-LAST:event_btnListaSimpleActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
