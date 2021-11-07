@@ -53,7 +53,6 @@ public class VentanaListaSimple extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         pnlNodos = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Lista Simple String");
         setPreferredSize(new java.awt.Dimension(730, 418));
         getContentPane().setLayout(new java.awt.GridBagLayout());

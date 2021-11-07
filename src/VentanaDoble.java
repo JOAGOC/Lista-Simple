@@ -53,8 +53,8 @@ public class VentanaDoble extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         pnlNodos = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Lista Simple String");
+        setTitle("Lista Doble Entero");
+        setPreferredSize(new java.awt.Dimension(753, 418));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         btnAgregar.setText("Agregar");
@@ -151,7 +151,10 @@ public class VentanaDoble extends javax.swing.JFrame {
             txtAgregar.setText("");
         } catch (Exception e) {
             if (e instanceof NumberFormatException)
+            {
                 showMessageDialog(this, "Inserta un flotante válido");
+                return;
+            }
             showMessageDialog(this, e.getMessage());
         }
         actualizarLista();
@@ -164,15 +167,15 @@ public class VentanaDoble extends javax.swing.JFrame {
             if (txtDel.getText().equals("")) {
                 throw new Exception("Rellena el campo");
             }
-            //if (!ld.borrar(Integer.parseInt(txtDel.getText()))){
-               // throw new Exception("No se encontró el nodo");
-            //}    
+            if (!ld.borrar(Integer.parseInt(txtDel.getText()))){
+                throw new Exception("No se encontró el nodo");
+            }    
             actualizarLista();
             super.repaint();
             validate();
         } catch (Exception e) {
             if (e instanceof NumberFormatException) {
-                showMessageDialog(this, "Inserta un flotante válido");
+                showMessageDialog(this, "Inserta un entero válido");
                 return;
             }
             showMessageDialog(this, e.getMessage());
@@ -194,15 +197,21 @@ public class VentanaDoble extends javax.swing.JFrame {
             for (javax.swing.JTextField txt : x)
                 txt.setText("");
         } catch (Exception e) {
+            if (e instanceof NumberFormatException)
+            {
+                showMessageDialog(this, "Inserta un entero válido");
+                return;
+            }
             showMessageDialog(this, e.getMessage());
         }
       actualizarLista();
       validate();
     }// GEN-LAST:event_btnEditarActionPerformed
 
-    public void actualizarLista() {
+    private void actualizarLista() {
         for (Component x : pnlNodos.getComponents())
             pnlNodos.remove(x);
+        if (ld.getInicio()!=null)
         for (NodoDoble n = ld.getInicio(); ; n = n.getSig()) {
             pnlNodos.add(n.getComponent());
             if (n == ld.getFin())

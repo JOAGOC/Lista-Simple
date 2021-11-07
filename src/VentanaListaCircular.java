@@ -36,7 +36,7 @@ public class VentanaListaCircular extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
@@ -52,8 +52,8 @@ public class VentanaListaCircular extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         pnlNodos = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Lista Simple String");
+        setTitle("Lista Circular Flotante");
+        setPreferredSize(new java.awt.Dimension(753, 418));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         btnAgregar.setText("Agregar");
@@ -150,7 +150,10 @@ public class VentanaListaCircular extends javax.swing.JFrame {
             txtAgregar.setText("");
         } catch (Exception e) {
             if (e instanceof NumberFormatException)
+            {
                 showMessageDialog(this, "Inserta un flotante válido");
+                return;
+            }
             showMessageDialog(this, e.getMessage());
         }
         actualizarLista();
@@ -206,6 +209,7 @@ public class VentanaListaCircular extends javax.swing.JFrame {
     public void actualizarLista() {
         for (Component x : pnlNodos.getComponents())
             pnlNodos.remove(x);
+        if(ldc.getInicio()!=null)
         for (NodoCircular n = ldc.getInicio(); ; n = n.getSig()) {
             pnlNodos.add(n.getComponent());
             if (n == ldc.getFin())

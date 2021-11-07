@@ -16,27 +16,28 @@ public class ListaDobleCircular {
         inicio = fin = null;
     }
 
-    public void agregar(float entero) {
-        NodoCircular nuevo = new NodoCircular(entero);
+    public void agregar(float flotante) {
+        NodoCircular nuevo = new NodoCircular(flotante);
         if (inicio == null) {
             inicio = fin = nuevo;
-        } else if (entero < inicio.getInfo()) {
+        } else if (flotante < inicio.getInfo()) {
             inicio.setAnt(nuevo);
             nuevo.setSig(inicio);
             inicio = nuevo;
-        } else if (entero > fin.getInfo()) {
+        } else if (flotante > fin.getInfo()) {
             fin.setSig(nuevo);
             nuevo.setAnt(fin);
             fin = nuevo;
         } else {
             for (NodoCircular n = inicio.getSig(); n != null; n = n.getSig()) {
-                if (n.getAnt().getInfo() <= entero && entero <= n.getInfo()) {
+                if (n.getAnt().getInfo() <= flotante && flotante <= n.getInfo()) {
                     n.getAnt().setSig(nuevo);
                     nuevo.setAnt(n.getAnt());
                     n.setAnt(nuevo);
                     nuevo.setSig(n);
-                    if (inicio == fin)
+                    if (inicio == fin) {
                         fin = inicio.getSig();
+                    }
                     break;
                 }
             }
@@ -74,9 +75,12 @@ public class ListaDobleCircular {
     }
 
     public NodoCircular buscar(float entero) {
-        for (NodoCircular i = inicio; i != null; i = i.getSig()) {
+        for (NodoCircular i = inicio; ; i = i.getSig()) {
             if (entero == i.getInfo()) {
                 return i;
+            }
+            if (i == fin) {
+                break;
             }
         }
         return null;

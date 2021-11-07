@@ -20,6 +20,10 @@ public class ListaDoble {
         NodoDoble nuevo = new NodoDoble(entero);
         if (inicio == null) {
             inicio = fin = nuevo;
+        } else if (inicio == fin && inicio.getInfo() == entero) {
+            inicio.setSig(nuevo);
+            nuevo.setAnt(inicio);
+            fin = nuevo;
         } else if (entero < inicio.getInfo()) {
             inicio.setAnt(nuevo);
             nuevo.setSig(inicio);
@@ -30,13 +34,11 @@ public class ListaDoble {
             fin = nuevo;
         } else {
             for (NodoDoble n = inicio.getSig(); n != null; n = n.getSig()) {
-                if (n.getAnt().getInfo() <= entero && entero < n.getInfo()) {
+                if (n.getAnt().getInfo() <= entero && entero <= n.getInfo()) {
                     n.getAnt().setSig(nuevo);
                     nuevo.setAnt(n.getAnt());
                     n.setAnt(nuevo);
                     nuevo.setSig(n);
-                        if (inicio == fin)
-                        fin = inicio.getSig();
                     break;
                 }
             }
@@ -50,7 +52,7 @@ public class ListaDoble {
         }
         return r;
     }
-    
+
     public String verAtras() {
         String r = "";
         for (NodoDoble i = fin; i != null; i = i.getAnt()) {
@@ -79,9 +81,9 @@ public class ListaDoble {
         }
         //Prueba borrar
 //        int[] nB = {0, 15, 13, 11, 43};
-        for (int i = lE.length-1; i >= 0; i--) {
+        for (int i = lE.length - 1; i >= 0; i--) {
             System.out.println("Borrar " + lE[i]);
-            System.out.println(l.borrar(lE[i])?"Borrado":"No borrado");
+            System.out.println(l.borrar(lE[i]) ? "Borrado" : "No borrado");
             System.out.println(l.ver());
             System.out.println(l.verAtras());
         }
@@ -106,13 +108,12 @@ public class ListaDoble {
         return false;
     }
 
-    private boolean borrar(int busqueda) {
+    public boolean borrar(int busqueda) {
         NodoDoble n;
         if ((n = buscar(busqueda)) != null) {
-            if (n == inicio && n == fin){
-                inicio=fin=null;
-            }
-            else if (n == inicio) {
+            if (n == inicio && n == fin) {
+                inicio = fin = null;
+            } else if (n == inicio) {
                 inicio = n.getSig();
                 inicio.setAnt(null);
             } else if (n == fin) {
@@ -126,19 +127,6 @@ public class ListaDoble {
         }
         return false;
     }
-    
-    public void borrar(NodoDoble nodo) {
-        if (nodo == inicio) {
-            inicio = nodo.getSig();
-        } else if (nodo == fin) {
-            fin = nodo.getAnt();
-            fin.setSig(null);
-        } else {
-            nodo.getAnt().setSig(nodo.getSig());
-        }
-    }
-
-
 
     public NodoDoble getInicio() {
         return inicio;
@@ -155,5 +143,5 @@ public class ListaDoble {
     public void setFin(NodoDoble fin) {
         this.fin = fin;
     }
-    
+
 }
